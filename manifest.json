@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "ThisVid Video Downloader",
+  "version": "1.1",
+  "permissions": ["webRequest", "downloads", "scripting", "storage"],
+  "host_permissions": ["*://*.thisvid.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.thisvid.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "ThisVid Downloader"
+  }
+}
