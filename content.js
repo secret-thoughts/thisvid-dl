@@ -1,12 +1,8 @@
-console.log("✅ content.js loaded");
-
 function hookVideo(video) {
   if (video._alreadyHooked) return;
   video._alreadyHooked = true;
-  console.log("🎯 Hooking play event on video:", video);
   
   video.addEventListener("play", () => {
-    console.log("🎥 Play triggered");
     setTimeout(() => {
       let mp4Url = video.currentSrc || video.src;
       const sources = [...video.querySelectorAll("source")].map(s => s.src);
@@ -16,11 +12,11 @@ function hookVideo(video) {
       }
       
       if (!mp4Url || !mp4Url.startsWith("http")) {
-        console.warn("❌ No valid MP4 URL found.");
+        console.warn("No valid MP4 URL found.");
         return;
       }
       
-      console.log("✅ MP4 URL extracted:", mp4Url);
+      console.log("MP4 URL extracted:", mp4Url);
 
 	const regex = /(\d+\.[a-z0-4]+)/i;
 	const match = mp4Url.match(regex);
@@ -155,10 +151,6 @@ function hookVideo(video) {
           const blob = new Blob(chunks, { type: 'video/mp4' });
           const url = URL.createObjectURL(blob);
 
-          // Extract filename from URL pathname, not the full URL
-          // const urlObj = new URL(mp4Url);
-          // const filename = urlObj.pathname.split('/').pop();
-
           const a = document.createElement('a');
           a.href = url;
           a.download = filename;
@@ -177,10 +169,10 @@ function hookVideo(video) {
           }, 3000);
           
         } catch (error) {
-          btn.textContent = "❌ Failed";
+          btn.textContent = "Failed";
           btn.style.background = "#dc3545";
           progressText.textContent = "Error: " + error.message;
-          console.error("❌ Error:", error);
+          console.error("Error:", error);
         }
       };
       
